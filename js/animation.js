@@ -1,6 +1,7 @@
 /**
  * GSAP ScrollTrigger Sequence Animation 
  * Frames 77 to 300 mapped to body scroll
+ * Optimized Two-Stage Background Preloading Pipeline
  */
 
 gsap.registerPlugin(ScrollTrigger);
@@ -20,7 +21,6 @@ const imageSequence = {
 console.log(`Animation script initializing... Target Range: ${startFrame} - ${endFrame}`);
 
 // State
-let loadedFrames = 0;
 let isAnimationReady = false;
 
 // Preloader elements
@@ -38,56 +38,102 @@ function resizeCanvas() {
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas(); // Initial Setup
 
-// Preload Images
+// Preload Images using two-stage pipeline
 function preloadImages() {
-  console.log(`Starting image preload for ${totalFramesCount} frames (from ${startFrame})...`);
+  console.log(`Setting up image placeholders for ${totalFramesCount} frames...`);
   
+  // 1. Initialize image placeholders
   for (let i = startFrame; i <= endFrame; i++) {
     const img = new Image();
-    
-    // Create zero-padded frame number: 077, 078, ... 300
-    const frameIndex = i.toString().padStart(3, '0');
-    // We request the real image path
-    img.src = `assets/animation/ezgif-frame-${frameIndex}.jpg`;
-
-    img.onload = () => {
-      loadedFrames++;
-      checkIfReady();
-    };
-
-    // Error handling
-    img.onerror = () => {
-      loadedFrames++;
-      console.error(`FAILED to load asset: assets/animation/ezgif-frame-${frameIndex}.jpg`);
-      img.isError = true;
-      checkIfReady();
-    };
-
+    img.isLoaded = false;
     images.push(img);
   }
-}
 
-// Check if all targeted frames loaded
-function checkIfReady() {
-  if (loadedFrames === totalFramesCount && !isAnimationReady) {
-    console.log("Specified sequence range loaded successfully.");
-    isAnimationReady = true;
+  // 2. Load the first batch (15 frames) aggressively to show the page instantly
+  const initialBatchCount = Math.min(15, totalFramesCount);
+  let loadedInitialCount = 0;
 
-    // Remove preloader
-    if (preloader) {
-      setTimeout(() => {
+  console.log(`Aggressively preloading first ${initialBatchCount} critical frames...`);
+
+  for (let i = 0; i < initialBatchCount; i++) {
+    const frameNum = startFrame + i;
+    const frameIndex = frameNum.toString().padStart(3, '0');
+    const img = images[i];
+
+    img.onload = () => {
+      img.isLoaded = true;
+      loadedInitialCount++;
+      checkInitialBatch();
+    };
+
+    img.onerror = () => {
+      img.isError = true;
+      img.isLoaded = true;
+      loadedInitialCount++;
+      console.error(`FAILED to load critical frame: ezgif-frame-${frameIndex}.jpg`);
+      checkInitialBatch();
+    };
+
+    img.src = `assets/animation/ezgif-frame-${frameIndex}.jpg`;
+  }
+
+  function checkInitialBatch() {
+    if (loadedInitialCount === initialBatchCount && !isAnimationReady) {
+      console.log("Critical batch loaded! Fading out preloader immediately.");
+      isAnimationReady = true;
+
+      // Remove preloader instantly for an extremely fast First Contentful Paint (FCP)
+      if (preloader) {
         preloader.classList.add('fade-out');
         setTimeout(() => {
           preloader.style.display = 'none';
-        }, 1200);
-      }, 3000); // Increased to 3s for better brand visibility
+        }, 600);
+      }
+
+      // Render first frame immediately
+      render();
+
+      // Init GSAP ScrollTrigger
+      initScrollTrigger();
+
+      // Load remaining frames sequentially in background (doesn't block network or UI thread)
+      loadRemainingFrames();
+    }
+  }
+
+  // 3. Load remaining frames sequentially in the background
+  function loadRemainingFrames() {
+    let currentIndex = initialBatchCount;
+
+    function loadNext() {
+      if (currentIndex >= totalFramesCount) {
+        console.log("All background frames loaded successfully!");
+        return;
+      }
+
+      const frameNum = startFrame + currentIndex;
+      const frameIndex = frameNum.toString().padStart(3, '0');
+      const img = images[currentIndex];
+
+      img.onload = () => {
+        img.isLoaded = true;
+        currentIndex++;
+        // Use requestAnimationFrame to yield control back to the browser for butter-smooth rendering
+        requestAnimationFrame(loadNext);
+      };
+
+      img.onerror = () => {
+        img.isError = true;
+        img.isLoaded = true;
+        currentIndex++;
+        requestAnimationFrame(loadNext);
+      };
+
+      img.src = `assets/animation/ezgif-frame-${frameIndex}.jpg`;
     }
 
-    // Render first frame immediately
-    render();
-
-    // Init GSAP
-    initScrollTrigger();
+    // Start background queue loading
+    loadNext();
   }
 }
 
@@ -95,27 +141,54 @@ function checkIfReady() {
 preloadImages();
 
 
-// Render function with 'Object-Fit: Cover' logic
+// Render function with 'Object-Fit: Cover' and smart nearest-frame fallback
 function render() {
-  const img = images[imageSequence.frame];
+  const targetFrame = imageSequence.frame;
+  let img = images[targetFrame];
   
   if (!img) return;
 
+  // Fallback: If target frame is not loaded yet, render the closest loaded frame!
+  if (!img.isLoaded) {
+    let found = false;
+    
+    // 1. Search backwards for nearest loaded frame
+    for (let i = targetFrame - 1; i >= 0; i--) {
+      if (images[i] && images[i].isLoaded) {
+        img = images[i];
+        found = true;
+        break;
+      }
+    }
+    
+    // 2. Search forwards if backward search yielded nothing
+    if (!found) {
+      for (let i = targetFrame + 1; i < totalFramesCount; i++) {
+        if (images[i] && images[i].isLoaded) {
+          img = images[i];
+          found = true;
+          break;
+        }
+      }
+    }
+  }
+
+  // Render context
   context.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Error placeholder
+  // Render error placeholder
   if (img.isError) {
     context.fillStyle = "#EADCCB";
     context.fillRect(0, 0, canvas.width, canvas.height);
     context.fillStyle = "rgba(47, 42, 38, 0.2)";
     context.font = "italic 24px 'DM Sans', sans-serif";
     context.textAlign = "center";
-    const actualFrameNum = startFrame + imageSequence.frame;
+    const actualFrameNum = startFrame + targetFrame;
     context.fillText(`[Missing Asset] assets/animation/ezgif-frame-${actualFrameNum.toString().padStart(3, '0')}.jpg`, canvas.width / 2, canvas.height / 2);
     return;
   }
 
-  // Cover calculation
+  // Cover calculation (object-fit: cover for <canvas>)
   const canvasAspect = canvas.width / canvas.height;
   const imageAspect = img.width / img.height;
   
