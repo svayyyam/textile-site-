@@ -392,7 +392,7 @@
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .beddings-collage, .carpets-rugs-collage {
     grid-template-columns: 1fr;
     gap: 1.25rem;
@@ -904,16 +904,41 @@
 }
 
 @media (max-width: 768px) {
+  .product-hero {
+    height: 40vh;
+    min-height: 280px;
+  }
+  .product-hero-content h1 {
+    font-size: 2.2rem !important;
+  }
+  .product-hero-content p {
+    font-size: 0.9rem;
+  }
+
+  .product-intro {
+    padding: 50px 0;
+  }
   .product-intro-images {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
   .product-intro-images img:first-child {
     grid-column: auto;
   }
+  .product-intro-text h2 {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+  }
+  .product-intro-text p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
   .preview-gallery {
     grid-template-columns: 1fr 1fr;
     gap: 8px;
   }
+
   .footer-rc-grid {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -925,6 +950,26 @@
   }
   .contact-cards-row {
     grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* Single Chart Infographic Scrollability on Mobile */
+  .beddings-single-container, .rugs-single-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    border-radius: 0;
+    box-shadow: none;
+    border-left: none;
+    border-right: none;
+  }
+  .beddings-all-img, .rugs-all-img {
+    min-width: 750px;
+    width: auto;
+    max-width: none;
+    height: auto;
   }
 }
 
