@@ -896,6 +896,7 @@ textarea.form-control { resize: vertical; min-height: 120px; }
   .team-grid { grid-template-columns: 1fr; }
   .collections-grid { grid-template-columns: 1fr; }
   .client-test-single p { font-size: 1.2rem; }
+  .mobile-nav-links a { font-size: 1.8rem; }
 }
 
 /* CATALOG GALLERY & LIGHTBOX */
