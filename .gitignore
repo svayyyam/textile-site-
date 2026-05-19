@@ -2,3 +2,18 @@
 *.zip
 copy/
 scratch/
+
+# Unused large source assets
+assets/11355809-uhd_3840_2160_25fps.mp4
+assets/20fc151a-8e29-4ec1-ab54-97d237ab4006.png
+assets/ChatGPT Image May 19, 2026 at 06_10_28 PM.png
+assets/beddings all.png
+assets/pexels-jahratreza-34629898.jpg
+
+# Unused raw source files under carpets and rugs
+assets/carpets and rugs/20fc151a-8e29-4ec1-ab54-97d237ab4006.png
+assets/carpets and rugs/WhatsApp Image*
+assets/carpets and rugs/beddings full.png
+assets/carpets and rugs/hero cushion.png
+assets/carpets and rugs/new rug.png
+assets/carpets and rugs/rugs all .png

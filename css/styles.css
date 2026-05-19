@@ -17,20 +17,6 @@
   --font-brand: 'Montserrat', sans-serif;
 }
 
-@font-face {
-  font-family: 'TheFont';
-  src: url("https://garet.typeforward.com/assets/fonts/shared/TFMixVF.woff2") format('woff2');
-}
-
-@keyframes letter-breathe {
-  from, to {
-    font-variation-settings: 'wght' 100;
-  }
-  50% {
-    font-variation-settings: 'wght' 900;
-  }
-}
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { 
   scroll-behavior: smooth; 
@@ -402,14 +388,20 @@ h3 { font-size: clamp(1.5rem, 3vw, 2.5rem); }
 .feature-card { overflow: hidden; }
 .feature-img-wrapper {
   overflow: hidden;
-  aspect-ratio: 380/260;
+  aspect-ratio: 16/9;
 }
 .feature-img-wrapper img {
   width: 100%; height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
 }
-.feature-card:hover .feature-img-wrapper img { transform: scale(1.04); }
+.feature-img-wrapper video {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  background-color: var(--color-bg-white);
+  transition: transform 0.4s ease;
+}
+.feature-card:hover .feature-img-wrapper img, .feature-card:hover .feature-img-wrapper video { transform: scale(1.04); }
 .feature-text { padding-top: 16px; }
 .feature-label { display: block; color: var(--color-primary); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.1em; }
 .feature-desc { color: var(--color-text-muted); font-size: 1.05rem; }
@@ -538,6 +530,18 @@ h3 { font-size: clamp(1.5rem, 3vw, 2.5rem); }
 .collection-thumb img { width: 100%; height: 100%; object-fit: cover; transition: all 0.3s; }
 .collection-thumb:hover img { transform: scale(1.08); border: 2px solid var(--color-primary); }
 
+/* WHY CHOOSE US */
+.why-choose-us {
+  padding: 0;
+  background-color: #F7E8DA;
+  overflow: hidden;
+}
+.why-choose-us-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* YOUNG & CREATIVE */
 .young-creative { 
   background: var(--color-bg-mid); 
@@ -614,8 +618,7 @@ h3 { font-size: clamp(1.5rem, 3vw, 2.5rem); }
 .page-hero h1 { 
   font-size: clamp(2.5rem, 5vw, 4.5rem); 
   margin: 0; 
-  font-family: 'TheFont', sans-serif; 
-  animation: letter-breathe 3s ease-in-out infinite; 
+  font-family: var(--font-hero); 
 }
 
 /* HERO VIDEO */

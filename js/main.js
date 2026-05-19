@@ -108,6 +108,15 @@ document.addEventListener('DOMContentLoaded', () => {
     link.classList.remove('active');
     if (link.getAttribute('href') === currentPath) {
       link.classList.add('active');
+      
+      // Highlight the parent dropdown-toggle if this link is inside a dropdown
+      const dropdownContent = link.closest('.dropdown-content');
+      if (dropdownContent) {
+        const toggle = dropdownContent.parentElement.querySelector('.dropdown-toggle');
+        if (toggle) {
+          toggle.classList.add('active');
+        }
+      }
     }
   });
 

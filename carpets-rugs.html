@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/product-pages.css">
+  <link rel="stylesheet" href="css/product-pages.css?v=2">
 </head>
 <body>
 
@@ -29,16 +29,16 @@
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <div class="dropdown">
-          <a href="carpets-rugs.html" class="dropdown-toggle active">Products <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+          <a href="javascript:void(0)" class="dropdown-toggle active">Products <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
           <div class="dropdown-content">
             <a href="carpets-rugs.html">Carpets & Rugs</a>
             <a href="cushions-throws.html">Cushions & Throws</a>
             <a href="poufs-ottomans.html">Poufs & Ottomans</a>
-            
+            <a href="beddings.html">Beddings</a>
           </div>
         </div>
         <div class="dropdown">
-          <a href="contact.html" class="dropdown-toggle">Support <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+          <a href="javascript:void(0)" class="dropdown-toggle">Support <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
           <div class="dropdown-content">
             <a href="contact.html">Contact Us</a>
             <a href="faqs.html">Frequently Asked Questions</a>
@@ -62,7 +62,7 @@
       <a href="carpets-rugs.html" class="active">Carpets & Rugs</a>
       <a href="cushions-throws.html">Cushions & Throws</a>
       <a href="poufs-ottomans.html">Poufs & Ottomans</a>
-      
+      <a href="beddings.html">Beddings</a>
       <a href="contact.html">Contact Us</a>
       <a href="faqs.html">FAQs</a>
     </div>
@@ -76,7 +76,7 @@
 
   <!-- Product Hero Banner -->
   <section class="product-hero">
-    <div class="product-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1600166898405-da9535204843?w=1920&q=80');"></div>
+    <div class="product-hero-bg" style="background-image: url('assets/carpets-rugs-hero.webp');"></div>
     <div class="product-hero-content">
       <h1>Carpets & Rugs</h1>
       <p>Discover the finest in rugs and carpets, expertly woven to enrich the décor of any space.</p>
@@ -89,8 +89,8 @@
       <div class="product-intro-grid reveal">
         <div class="product-intro-images">
           <img src="https://images.unsplash.com/photo-1600166898405-da9535204843?w=600&q=80" alt="Handcrafted Carpet Collection">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80" alt="Carpet Texture Detail">
-          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80" alt="Carpet in Living Room">
+          <img src="assets/carpets%20and%20rugs/new-rug.webp" alt="Carpet Texture Detail" loading="lazy">
+          <img src="assets/carpets%20and%20rugs/carpets-rugs-intro-3.webp" alt="Modern Handcrafted Carpet" loading="lazy">
         </div>
         <div class="product-intro-text">
           <h2>India's Largest Carpets and Rugs Manufacturer</h2>
@@ -110,13 +110,8 @@
     <div class="container">
       <span class="section-label">PRODUCTS PREVIEW</span>
       <h2>Take a peek at some of our best carpets and rugs collection</h2>
-      <div class="uneven-collage reveal">
-        <div class="collage-item collage-item-1"><img src="assets/peek-1.jpg" alt="Collection Peek 1"></div>
-        <div class="collage-item collage-item-2"><img src="assets/peek-2.jpg" alt="Collection Peek 2"></div>
-        <div class="collage-item collage-item-3"><img src="assets/peek-3.jpg" alt="Collection Peek 3"></div>
-        <div class="collage-item collage-item-4"><img src="assets/peek-4.jpg" alt="Collection Peek 4"></div>
-        <div class="collage-item collage-item-5"><img src="assets/peek-5.jpg" alt="Collection Peek 5"></div>
-        <div class="collage-item collage-item-6"><img src="assets/peek-6.jpg" alt="Collection Peek 6"></div>
+      <div class="rugs-single-container reveal" onclick="openLightbox('assets/carpets and rugs/rugs-all.webp')">
+        <img src="assets/carpets and rugs/rugs-all.webp" alt="Exquisite Carpets & Rugs Collection" class="rugs-all-img" loading="lazy">
       </div>
     </div>
   </section>
@@ -235,7 +230,7 @@
           <a href="carpets-rugs.html">Carpets & Rugs</a>
           <a href="cushions-throws.html">Cushions & Throws</a>
           <a href="poufs-ottomans.html">Poufs & Ottomans</a>
-          
+          <a href="beddings.html">Beddings</a>
         </div>
         <div class="footer-rc-col">
           <h4>Follow Us</h4>
@@ -352,6 +347,25 @@
           btn.disabled = false;
         });
       });
+    }
+  </script>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="Enlarged image">
+  </div>
+
+  <script>
+    function openLightbox(src) {
+      const lightbox = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      img.src = src;
+      lightbox.classList.add('active');
+    }
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
     }
   </script>
 </body>

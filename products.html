@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/product-pages.css">
 </head>
 <body>
 
@@ -28,13 +29,11 @@
         <a href="index.html" >Home</a>
         <a href="about.html" >About</a>
         <div class="dropdown">
-          <a href="products.html" class="dropdown-toggle active">Products <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+          <a href="javascript:void(0)" class="dropdown-toggle active">Products <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
           <div class="dropdown-content">
             <a href="carpets-rugs.html">Carpets & Rugs</a>
-            <a href="cushions.html">Cushions</a>
+            <a href="cushions-throws.html">Cushions & Throws</a>
             <a href="poufs-ottomans.html">Poufs & Ottomans</a>
-            
-            <a href="throws.html">Throws</a>
             <a href="beddings.html">Beddings</a>
           </div>
         </div>
@@ -57,10 +56,8 @@
       <a href="index.html" >Home</a>
       <a href="about.html" >About</a>
       <a href="carpets-rugs.html">Carpets & Rugs</a>
-      <a href="cushions.html">Cushions</a>
+      <a href="cushions-throws.html">Cushions & Throws</a>
       <a href="poufs-ottomans.html">Poufs & Ottomans</a>
-      
-      <a href="throws.html">Throws</a>
       <a href="beddings.html">Beddings</a>
       <a href="certifications.html" >Certifications</a>
       <a href="clients.html" >Clients</a>
@@ -90,11 +87,13 @@
       <div class="filter-bar reveal">
         <a href="products.html" class="filter-btn active">All</a>
         <a href="carpets-rugs.html" class="filter-btn">Carpets & Rugs</a>
-        <a href="cushions.html" class="filter-btn">Cushions</a>
+        <a href="cushions-throws.html" class="filter-btn">Cushions & Throws</a>
         <a href="poufs-ottomans.html" class="filter-btn">Poufs & Ottomans</a>
-        
-        <a href="throws.html" class="filter-btn">Throws</a>
         <a href="beddings.html" class="filter-btn">Beddings</a>
+      </div>
+
+      <div class="text-center reveal" style="margin-bottom: 40px;">
+        <button class="btn btn-primary" onclick="openCatalogueModal()">Request Full Catalogue</button>
       </div>
 
       <!-- Product Grid -->
@@ -105,7 +104,7 @@
           <span class="prod-cat">Carpets & Rugs</span>
           <h3 class="prod-name">Vintage Loom Block</h3>
           <p class="prod-desc">Hand-knotted wool blend with a beautiful distressed finish for modern homes.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Vintage Loom Block')">Enquire Now</button>
         </div>
         
         <div class="product-card" data-category="poufs">
@@ -113,7 +112,7 @@
           <span class="prod-cat">Poufs & Ottomans</span>
           <h3 class="prod-name">Boho Chindi Pouf</h3>
           <p class="prod-desc">Colorful recycled cotton braided pouf, bringing vibrant energy to any space.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Boho Chindi Pouf')">Enquire Now</button>
         </div>
         
         <div class="product-card" data-category="carpets">
@@ -121,7 +120,7 @@
           <span class="prod-cat">Carpets & Rugs</span>
           <h3 class="prod-name">Geo Tufted Silk</h3>
           <p class="prod-desc">Premium viscose and silk blend with geometric high-low tufting.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Geo Tufted Silk')">Enquire Now</button>
         </div>
 
         <div class="product-card" data-category="cushions">
@@ -129,7 +128,7 @@
           <span class="prod-cat">Cushions</span>
           <h3 class="prod-name">Macrame Weave Cushion</h3>
           <p class="prod-desc">Handwoven cotton macrame covers perfect for outdoor or patio seating.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Macrame Weave Cushion')">Enquire Now</button>
         </div>
 
         <div class="product-card" data-category="throws">
@@ -137,7 +136,7 @@
           <span class="prod-cat">Throws</span>
           <h3 class="prod-name">Slub Cotton Throw</h3>
           <p class="prod-desc">Lightweight summer throw with elegant tassels.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Slub Cotton Throw')">Enquire Now</button>
         </div>
 
         <div class="product-card" data-category="accessories">
@@ -145,7 +144,7 @@
           <span class="prod-cat">Accessories</span>
           <h3 class="prod-name">Wanderlust Wall Hanging</h3>
           <p class="prod-desc">Intricate handmade wall decor to elevate bare interiors.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Wanderlust Wall Hanging')">Enquire Now</button>
         </div>
 
         <div class="product-card" data-category="carpets">
@@ -153,7 +152,7 @@
           <span class="prod-cat">Carpets & Rugs</span>
           <h3 class="prod-name">Nomadic Shag Rug</h3>
           <p class="prod-desc">Plush high-pile shag carpet that offers incredible underfoot comfort.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Nomadic Shag Rug')">Enquire Now</button>
         </div>
 
         <div class="product-card" data-category="cushions">
@@ -161,7 +160,7 @@
           <span class="prod-cat">Cushions</span>
           <h3 class="prod-name">Jute Fringed Cover</h3>
           <p class="prod-desc">Earthy texture blending natural jute and soft cotton.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Jute Fringed Cover')">Enquire Now</button>
         </div>
 
         <div class="product-card" data-category="poufs">
@@ -169,7 +168,7 @@
           <span class="prod-cat">Poufs & Ottomans</span>
           <h3 class="prod-name">Monochrome Geo Pouf</h3>
           <p class="prod-desc">Sleek black and white geometric patterns for minimalist decor.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Monochrome Geo Pouf')">Enquire Now</button>
         </div>
         
         <div class="product-card" data-category="carpets">
@@ -177,7 +176,7 @@
           <span class="prod-cat">Carpets & Rugs</span>
           <h3 class="prod-name">Persian Revival Overdyed</h3>
           <p class="prod-desc">Classic Persian motifs given a modern, vivid overdyed treatment.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Persian Revival Overdyed')">Enquire Now</button>
         </div>
 
         <div class="product-card" data-category="throws">
@@ -185,7 +184,7 @@
           <span class="prod-cat">Throws</span>
           <h3 class="prod-name">Chunky Knit Blanket</h3>
           <p class="prod-desc">Luxuriously thick hand-knitted accent blanket for cozy winter evenings.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Chunky Knit Blanket')">Enquire Now</button>
         </div>
 
         <div class="product-card" data-category="accessories">
@@ -193,7 +192,7 @@
           <span class="prod-cat">Accessories</span>
           <h3 class="prod-name">Hemp Braided Basket</h3>
           <p class="prod-desc">Durable, stylish storage solution made from 100% natural hemp.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Hemp Braided Basket')">Enquire Now</button>
         </div>
 
         <div class="product-card" data-category="beddings">
@@ -201,7 +200,7 @@
           <span class="prod-cat">Beddings</span>
           <h3 class="prod-name">Linen Dream Duvet</h3>
           <p class="prod-desc">Pure Belgian linen duvet set for ultimate breathability and comfort.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Linen Dream Duvet')">Enquire Now</button>
         </div>
 
         <div class="product-card" data-category="beddings">
@@ -209,7 +208,7 @@
           <span class="prod-cat">Beddings</span>
           <h3 class="prod-name">Satin Silk Quilt</h3>
           <p class="prod-desc">Hand-stitched silk quilt with a luxurious sheen and lightweight warmth.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Satin Silk Quilt')">Enquire Now</button>
         </div>
 
         <div class="product-card" data-category="beddings">
@@ -217,7 +216,7 @@
           <span class="prod-cat">Beddings</span>
           <h3 class="prod-name">Cotton Waffle Blanket</h3>
           <p class="prod-desc">Pre-washed organic cotton waffle blanket offering lightweight warmth and soft texture.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Cotton Waffle Blanket')">Enquire Now</button>
         </div>
 
         <div class="product-card" data-category="beddings">
@@ -225,7 +224,7 @@
           <span class="prod-cat">Beddings</span>
           <h3 class="prod-name">Egyptian Cotton Sheets</h3>
           <p class="prod-desc">400-thread-count Egyptian cotton sheet set for a crisp, hotel-quality feel.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Egyptian Cotton Sheets')">Enquire Now</button>
         </div>
 
         <div class="product-card" data-category="beddings">
@@ -233,7 +232,7 @@
           <span class="prod-cat">Beddings</span>
           <h3 class="prod-name">Velvet Quilted Coverlet</h3>
           <p class="prod-desc">Plush velvet coverlet with geometric quilting for a touch of modern luxury.</p>
-          <a href="#" class="btn btn-ghost">Enquire Now</a>
+          <button class="btn btn-ghost" onclick="openCatalogueModal('Velvet Quilted Coverlet')">Enquire Now</button>
         </div>
 
       </div>
@@ -288,5 +287,105 @@
   </footer>
 
   <script src="js/main.js"></script>
+
+  <!-- Catalogue Request Modal -->
+  <div class="catalogue-modal" id="catalogueModal">
+    <div class="catalogue-modal-content">
+      <button class="catalogue-modal-close" onclick="closeCatalogueModal()">&times;</button>
+      <h3 id="modalTitle">Request Our Catalogue</h3>
+      <p id="modalDesc">We are glad to know you are interested in our catalogues. Please fill in the form below and our merchandising team will get back to you shortly.</p>
+      <form id="catalogueForm" action="https://formspree.io/f/xaqazkdg" method="POST">
+        <input type="hidden" id="formTypeInput" name="form_type" value="Catalogue Request - All Products">
+        <div class="form-group">
+          <label for="catName">Full Name *</label>
+          <input type="text" id="catName" name="fullName" required>
+        </div>
+        <div class="form-group">
+          <label for="catEmail">Email Address *</label>
+          <input type="email" id="catEmail" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="catCompany">Company Name</label>
+          <input type="text" id="catCompany" name="company">
+        </div>
+        <div class="form-group">
+          <label for="catPhone">Phone Number</label>
+          <input type="tel" id="catPhone" name="phone">
+        </div>
+        <div class="form-group">
+          <label for="catMessage">Message</label>
+          <textarea id="catMessage" name="message" placeholder="Tell us about your requirements..."></textarea>
+        </div>
+        <button type="submit" class="btn-catalogue">Submit Request</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openCatalogueModal(productName) {
+      const modal = document.getElementById('catalogueModal');
+      const title = document.getElementById('modalTitle');
+      const desc = document.getElementById('modalDesc');
+      const typeInput = document.getElementById('formTypeInput');
+      const messageField = document.getElementById('catMessage');
+      
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      
+      if (productName) {
+        title.textContent = `Enquire about ${productName}`;
+        desc.textContent = `Interested in ${productName}? Fill in the form below to receive pricing, specifications, and catalogue details.`;
+        typeInput.value = `Product Enquiry - ${productName}`;
+        messageField.value = `Hello, I would like to enquire about the "${productName}". Please share pricing and wholesale terms.`;
+      } else {
+        title.textContent = "Request Our Catalogue";
+        desc.textContent = "We are glad to know you are interested in our catalogues. Please fill in the form below and our merchandising team will get back to you shortly.";
+        typeInput.value = "Catalogue Request - All Products";
+        messageField.value = "";
+      }
+    }
+    
+    function closeCatalogueModal() {
+      document.getElementById('catalogueModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    document.getElementById('catalogueModal').addEventListener('click', function(e) {
+      if (e.target === this) closeCatalogueModal();
+    });
+    
+    const catForm = document.getElementById('catalogueForm');
+    if (catForm) {
+      catForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = catForm.querySelector('button[type="submit"]');
+        const origText = btn.textContent;
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
+        
+        fetch(catForm.action, {
+          method: 'POST',
+          body: new FormData(catForm),
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(r => {
+          if (r.ok) {
+            btn.textContent = '✓ Sent Successfully!';
+            catForm.reset();
+            setTimeout(() => { closeCatalogueModal(); btn.textContent = origText; btn.disabled = false; }, 2500);
+          } else {
+            alert('Something went wrong. Please try again.');
+            btn.textContent = origText;
+            btn.disabled = false;
+          }
+        })
+        .catch(() => {
+          alert('Something went wrong. Please try again.');
+          btn.textContent = origText;
+          btn.disabled = false;
+        });
+      });
+    }
+  </script>
 </body>
 </html>
