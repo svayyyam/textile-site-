@@ -101,24 +101,88 @@
       </div>
 
       <!-- Product Grid -->
-      <div class="product-grid reveal">
         <div class="product-card" data-category="beddings">
-          <div class="prod-img-wrap"><img src="https://picsum.photos/seed/bed1/600/600" alt="Product"></div>
+          <div class="prod-img-wrap"><img src="assets/beddings-1.webp" alt="Linen Dream Duvet"></div>
           <span class="prod-cat">Beddings</span>
           <h3 class="prod-name">Linen Dream Duvet</h3>
           <p class="prod-desc">Pure Belgian linen duvet set for ultimate breathability and comfort.</p>
           <a href="#" class="btn btn-ghost">Enquire Now</a>
         </div>
         <div class="product-card" data-category="beddings">
-          <div class="prod-img-wrap"><img src="https://picsum.photos/seed/bed2/600/600" alt="Product"></div>
+          <div class="prod-img-wrap"><img src="assets/beddings-2.webp" alt="Satin Silk Quilt"></div>
           <span class="prod-cat">Beddings</span>
           <h3 class="prod-name">Satin Silk Quilt</h3>
           <p class="prod-desc">Hand-stitched silk quilt with a luxurious sheen and lightweight warmth.</p>
           <a href="#" class="btn btn-ghost">Enquire Now</a>
         </div>
+        <div class="product-card" data-category="beddings">
+          <div class="prod-img-wrap"><img src="assets/beddings-3.webp" alt="Cotton Waffle Blanket"></div>
+          <span class="prod-cat">Beddings</span>
+          <h3 class="prod-name">Cotton Waffle Blanket</h3>
+          <p class="prod-desc">Pre-washed organic cotton waffle blanket offering lightweight warmth and soft texture.</p>
+          <a href="#" class="btn btn-ghost">Enquire Now</a>
+        </div>
+        <div class="product-card" data-category="beddings">
+          <div class="prod-img-wrap"><img src="assets/beddings-4.webp" alt="Egyptian Cotton Sheets"></div>
+          <span class="prod-cat">Beddings</span>
+          <h3 class="prod-name">Egyptian Cotton Sheets</h3>
+          <p class="prod-desc">400-thread-count Egyptian cotton sheet set for a crisp, hotel-quality feel.</p>
+          <a href="#" class="btn btn-ghost">Enquire Now</a>
+        </div>
+        <div class="product-card" data-category="beddings">
+          <div class="prod-img-wrap"><img src="assets/beddings-5.webp" alt="Velvet Quilted Coverlet"></div>
+          <span class="prod-cat">Beddings</span>
+          <h3 class="prod-name">Velvet Quilted Coverlet</h3>
+          <p class="prod-desc">Plush velvet coverlet with geometric quilting for a touch of modern luxury.</p>
+          <a href="#" class="btn btn-ghost">Enquire Now</a>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- Products Preview Section -->
+  <section class="products-preview">
+    <div class="container">
+      <span class="section-label">PRODUCTS PREVIEW</span>
+      <h2>Take a peek at some of our best beddings collection</h2>
+      <div class="beddings-collage reveal">
+        <div class="collage-item beddings-item-1" onclick="openLightbox('assets/beddings-1.webp')">
+          <img src="assets/beddings-1.webp" alt="Beddings Collection 1" loading="lazy">
+        </div>
+        <div class="collage-item beddings-item-2" onclick="openLightbox('assets/beddings-2.webp')">
+          <img src="assets/beddings-2.webp" alt="Beddings Collection 2" loading="lazy">
+        </div>
+        <div class="collage-item beddings-item-3" onclick="openLightbox('assets/beddings-3.webp')">
+          <img src="assets/beddings-3.webp" alt="Beddings Collection 3" loading="lazy">
+        </div>
+        <div class="collage-item beddings-item-4" onclick="openLightbox('assets/beddings-4.webp')">
+          <img src="assets/beddings-4.webp" alt="Beddings Collection 4" loading="lazy">
+        </div>
+        <div class="collage-item beddings-item-5" onclick="openLightbox('assets/beddings-5.webp')">
+          <img src="assets/beddings-5.webp" alt="Beddings Collection 5" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="Enlarged image">
+  </div>
+
+  <script>
+    function openLightbox(src) {
+      const lightbox = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      img.src = src;
+      lightbox.classList.add('active');
+    }
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+    }
+  </script>
 
   <!-- Global Footer -->
   <footer class="footer">
