@@ -4,13 +4,499 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us | Shyamik Overseas</title>
-  <meta name="description" content="Our story as India's leading rug and carpet manufacturer.">
+  <meta name="description" content="Based in Panipat, Haryana. Premier vertically integrated home textiles manufacturer delivering transparency, vertical integrity, and artisanal mastery globally.">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/product-pages.css">
+  
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    /* PAGE CUSTOM STYLES */
+    .page-hero {
+      position: relative;
+      height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #000;
+    }
+    .page-hero-img-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.65;
+      transform: scale(1.1);
+      transition: transform 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .page-hero:hover .page-hero-img-bg {
+      transform: scale(1.03);
+    }
+    
+    /* Intro section modifications */
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 60px 0;
+    }
+    .intro-img-wrapper {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+      border: 1px solid rgba(200, 16, 46, 0.1);
+    }
+    .intro-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .intro-img-wrapper:hover .intro-img {
+      transform: scale(1.05);
+    }
+    .intro-badge {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      background: #FFF8ED;
+      padding: 16px 24px;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border-left: 4px solid var(--color-primary);
+      z-index: 2;
+    }
+    .intro-badge span {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-muted);
+      font-weight: 600;
+    }
+    .intro-badge h4 {
+      font-family: var(--font-hero);
+      font-size: 1.5rem;
+      color: var(--color-text-dark);
+      margin-top: 4px;
+      font-weight: 700;
+    }
+
+    /* Horizontal scroll track classes */
+    .horizontal-scroll-section {
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+      background-color: #FFF8ED;
+      border-top: 1px solid rgba(47, 42, 38, 0.05);
+      border-bottom: 1px solid rgba(47, 42, 38, 0.05);
+    }
+    .scroll-pin-wrapper {
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .scroll-track {
+      display: flex;
+      width: 300vw;
+      height: 100vh;
+    }
+    .scroll-panel {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      position: relative;
+    }
+    .panel-content {
+      width: 45%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 80px 0 120px;
+      background-color: #FFF8ED;
+      z-index: 2;
+      position: relative;
+    }
+    .panel-num {
+      font-family: var(--font-hero);
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--color-accent-gold);
+      opacity: 0.6;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .panel-title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      color: var(--color-text-dark);
+      margin-bottom: 24px;
+      line-height: 1.15;
+    }
+    .panel-desc {
+      font-size: 1.15rem;
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+    .panel-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .spec-tag {
+      background: rgba(200, 16, 46, 0.05);
+      border: 1px solid rgba(200, 16, 46, 0.1);
+      color: var(--color-primary);
+      padding: 8px 18px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: var(--font-body);
+    }
+    .panel-btn {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      width: fit-content;
+    }
+    .panel-btn:hover {
+      letter-spacing: 0.12em;
+    }
+    .panel-btn svg {
+      transition: transform 0.3s ease;
+    }
+    .panel-btn:hover svg {
+      transform: translateX(6px);
+    }
+    .panel-image {
+      width: 55%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .panel-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #FFF8ED 0%, transparent 100%);
+      z-index: 1;
+    }
+
+    /* Counter Stats Section */
+    .luxury-stats {
+      background: #2F2A26;
+      color: #FFF8ED;
+      padding: 80px 0;
+      border-bottom: 1px solid rgba(255,248,237,0.05);
+    }
+    .luxury-stats h2, .luxury-stats h3, .luxury-stats .stat-num {
+      color: #FFF8ED;
+    }
+    .stat-card {
+      text-align: center;
+      padding: 20px;
+    }
+    .stat-num {
+      font-family: var(--font-hero);
+      font-size: clamp(3rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 8px;
+      color: var(--color-accent-gold) !important;
+    }
+    .stat-lbl {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,248,237,0.7);
+    }
+
+    /* Human Touch Split collage */
+    .artisans-section {
+      background-color: #FFF8ED;
+    }
+    .artisans-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .artisans-features {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .art-feat-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .art-feat-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(200, 16, 46, 0.05);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      flex-shrink: 0;
+      font-weight: 700;
+      font-family: var(--font-hero);
+      font-size: 1.25rem;
+      border: 1px solid rgba(200, 16, 46, 0.1);
+    }
+    .art-feat-content h4 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .art-feat-content p {
+      font-size: 1.05rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* Single Large Premium Image Wrapper for Artisans */
+    .artisan-image-wrapper {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+      border: 1px solid rgba(200, 16, 46, 0.08);
+      aspect-ratio: 4/5;
+    }
+    .artisan-large-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .artisan-image-wrapper:hover .artisan-large-img {
+      transform: scale(1.05);
+    }
+
+    /* Female empowerment section with light glass/ivory overlay */
+    .empowerment-section {
+      background: linear-gradient(180deg, #FFF8ED 0%, #F5E6D3 100%);
+      border-top: 1px solid rgba(47, 42, 38, 0.05);
+    }
+    .empower-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .empower-img-col {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .empower-img-wrapper {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 30px 60px rgba(47, 42, 38, 0.15);
+      border: 1px solid rgba(200, 16, 46, 0.1);
+      aspect-ratio: 16/11;
+    }
+    .empower-static-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .empower-img-wrapper:hover .empower-static-img {
+      transform: scale(1.05);
+    }
+    .empower-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .empower-card {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid rgba(47, 42, 38, 0.04);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+      transition: all 0.3s ease;
+    }
+    .empower-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(200, 16, 46, 0.05);
+      border-color: rgba(200, 16, 46, 0.15);
+    }
+    .empower-card h4 {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+    .empower-card p {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+    
+    /* Pull Quotes card styling */
+    .quote-box {
+      padding: 30px;
+      border-radius: 12px;
+      background: rgba(200, 16, 46, 0.03);
+      border-left: 4px solid var(--color-primary);
+    }
+    .quote-text {
+      font-family: var(--font-hero);
+      font-size: 1.35rem;
+      line-height: 1.5;
+      font-style: italic;
+      color: var(--color-text-dark);
+      margin-bottom: 12px;
+    }
+    .quote-author {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    /* Certifications Board & Description styling */
+    .certifications-board-wrapper {
+      max-width: 1000px;
+      margin: 0 auto 60px auto;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+      border: 1px solid rgba(47, 42, 38, 0.1);
+      position: relative;
+      background: #333;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .certifications-board-wrapper:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 35px 80px rgba(0,0,0,0.22);
+    }
+    .certifications-board-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .certs-desc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      text-align: left;
+      margin-top: 50px;
+    }
+    .cert-desc-item {
+      background: white;
+      padding: 35px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+      border: 1px solid rgba(47, 42, 38, 0.05);
+      transition: all 0.3s ease;
+    }
+    .cert-desc-item:hover {
+      transform: translateY(-5px);
+      border-color: rgba(200, 16, 46, 0.15);
+      box-shadow: 0 15px 35px rgba(200, 16, 46, 0.05);
+    }
+    .cert-desc-item h4 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+    .cert-desc-item p {
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* GENERAL RESPONSIVENESS */
+    @media (max-width: 1024px) {
+      .scroll-track {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+      }
+      .scroll-pin-wrapper {
+        height: auto;
+        overflow: visible;
+      }
+      .scroll-panel {
+        width: 100%;
+        height: auto;
+        flex-direction: column-reverse;
+        padding: 80px 24px;
+        border-bottom: 1px solid rgba(47, 42, 38, 0.05);
+      }
+      .panel-content {
+        width: 100%;
+        padding: 40px 20px 0 20px;
+      }
+      .panel-image {
+        width: 100%;
+        aspect-ratio: 16/10;
+        border-radius: 12px;
+      }
+      .panel-image::after {
+        display: none;
+      }
+      
+      .intro-grid, .artisans-grid, .empower-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+      .certs-desc-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .certs-desc-grid {
+        grid-template-columns: 1fr;
+      }
+      .empower-cards {
+        grid-template-columns: 1fr;
+      }
+      .spec-tag {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -18,7 +504,7 @@
   <nav class="navbar" id="navbar">
     <div class="nav-top">
       <div class="nav-top-inner">
-        <a href="mailto:info@shyamikoverseas.com"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> info@shyamikoverseas.com</a>
+        <a href="mailto:contact@shyamikoverseas.in"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> contact@shyamikoverseas.in</a>
         <a href="tel:+9109992717900"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +91-0 9992717900</a>
       </div>
     </div>
@@ -54,7 +540,7 @@
     </div>
   </nav>
 
-    <!-- Mobile Menu Overlay -->
+  <!-- Mobile Menu Overlay -->
   <div class="mobile-menu" id="mobileMenu">
     <div class="mobile-nav-links">
       <a href="index.html">Home</a>
@@ -74,94 +560,237 @@
     <div id="preloader-text">Shyamik Overseas</div>
   </div>
 
-  <!-- Hero Section -->
+  <!-- Hero Section with background image -->
   <section class="page-hero">
-    <div class="page-hero-bg"></div>
+    <img src="assets/about%20/hero%20page%20.webp" alt="Hathkargha Studios" class="page-hero-img-bg" id="heroBg">
+    <div class="page-hero-bg" style="opacity: 0.35; background: #000;"></div>
     <div class="page-hero-content reveal">
-      <h1>Our Story</h1>
+      <h1 style="color: #FFF8ED;">Hathkargha Studios</h1>
+      <p style="color: #EADCCB; font-family: var(--font-body); font-size: 1.15rem; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 15px;">The Story of Shyamik Overseas</p>
     </div>
   </section>
 
-  <!-- Company Story -->
-  <section class="story-section">
+  <!-- Section 1: Intro Story -->
+  <section class="intro-section section-light">
     <div class="container">
-      <div class="story-grid reveal">
-        <div class="story-text">
-          <span class="section-label">A Legacy of Weaving</span>
-          <h2>A Heritage Woven in Time</h2>
-          <p>Founded over two decades ago, Shyamik Overseas began as a small weaving workshop in the heart of India. Today, we are proud to be one of the premier exporters of handcrafted and machine-made rugs globally.</p>
-          <p>Our mission is simple: To bring the finest Indian artisanship into homes around the world, elevating everyday living spaces while providing sustainable livelihoods to thousands of skilled weavers. We believe that every rug tells a story—a narrative of tradition, passion, and meticulous attention to detail.</p>
+      <div class="intro-grid">
+        <div class="intro-text-col">
+          <span class="section-label">Transparency & Artisan Mastery</span>
+          <h2>A Heritage Built on Vertical Integrity</h2>
+          <p style="margin-bottom: 20px; font-size: 1.15rem; line-height: 1.8;">Based in the historic textile hub of Panipat, Haryana (India), <strong>Shyamik Overseas</strong> was founded on the belief that world-class home textiles should be built on a foundation of transparency and artisan mastery.</p>
+          <p style="margin-bottom: 20px; font-size: 1.15rem; line-height: 1.8;">We are a premier, vertically integrated manufacturer and exporter of high-quality home textiles, specialized in bridging the gap between superior craftsmanship and the global retail market by maintaining complete control over simultaneous processes.</p>
+          <p style="font-size: 1.15rem; line-height: 1.8;">As a direct manufacturer, we take pride in our <strong>100% in-house production model</strong>. Every product that bears the Shyamik Overseas name is designed, sourced, and manufactured within our own facilities, ensuring that we never compromise on quality, safety, or ethical standards.</p>
         </div>
-        <img class="story-img" src="https://picsum.photos/seed/rug15/800/600" alt="Craftspeople at work">
-      </div>
-      
-      <div class="story-grid alt reveal" style="margin-top: 100px;">
-        <div class="story-text">
-          <span class="section-label">Our Values</span>
-          <h2>Driven by Passion & Integrity</h2>
-          <p>As we have grown to serve over 50 countries, we have never lost sight of our core values. We continuously innovate our designs while respecting the age-old techniques inherited from generations of master craftsmen.</p>
-          <p>Integrity, quality, and community support remain the cornerstones of our operations. We ensure ethical practices at every stage of production, creating an environment where art and ethics coexist beautifully.</p>
+        <div class="intro-img-col">
+          <div class="intro-img-wrapper" id="introImgWrapper">
+            <img loading="lazy" src="assets/about%20/about%20us%20.webp" alt="Shyamik Overseas Weaving Studio" class="intro-img">
+            <div class="intro-badge">
+              <span>Hathkargha Studio</span>
+              <h4>100% In-House</h4>
+            </div>
+          </div>
         </div>
-        <img class="story-img" src="https://picsum.photos/seed/rug16/800/600" alt="Quality inspection of a rug">
       </div>
     </div>
   </section>
 
-  <!-- Stats Bar -->
-  <section class="stats-bar reveal">
+  <!-- Section 2: Interactive Stats Bar -->
+  <section class="luxury-stats">
     <div class="container">
       <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-num">25+</div>
-          <div class="stat-label">Years of Excellence</div>
+        <div class="stat-card">
+          <div class="stat-num" data-val="24">0</div>
+          <div class="stat-lbl">Rapier Looms</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num">50+</div>
-          <div class="stat-label">Countries Exported</div>
+        <div class="stat-card">
+          <div class="stat-num" data-val="53">0</div>
+          <div class="stat-lbl">Global Countries</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num">10k+</div>
-          <div class="stat-label">Products Created</div>
+        <div class="stat-card">
+          <div class="stat-num" data-val="100">0</div>
+          <div class="stat-lbl">% In-House</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num">500+</div>
-          <div class="stat-label">Skilled Artisans</div>
+        <div class="stat-card">
+          <div class="stat-num" data-val="10">0</div>
+          <div class="stat-lbl">Years Weaving</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Our Philosophy Section -->
-  <section class="philosophy-section">
-    <div class="container reveal">
-      <div class="philosophy-grid">
-        <div class="philosophy-content">
-          <span class="section-label">Our Philosophy</span>
-          <h2 class="philosophy-title">The Art of Mindful Craftsmanship</h2>
-          <div class="philosophy-quote">
-            "True luxury lies in the hands of the artisan and the soul of the materials."
+  <!-- Section 3: Luxury Divisions (Horizontal Scroll PIN on Desktop) -->
+  <section class="horizontal-scroll-section" id="horizontalSection">
+    <div class="scroll-pin-wrapper">
+      <div class="scroll-track" id="scrollTrack">
+        
+        <!-- Panel 1: Beddings -->
+        <div class="scroll-panel">
+          <div class="panel-content">
+            <span class="panel-num">01</span>
+            <h2 class="panel-title">The Sanctuary of Bedding</h2>
+            <p class="panel-desc">Our bedding is crafted where modern efficiency meets meticulous detail. Guided by experienced eyes and hands, we weave premium ring-frame cotton yarn celebrated for strength, softness, and sustainability, finished with strict organic AZO-free dyeing completely safe for you and the environment.</p>
+            <div class="panel-specs">
+              <div class="spec-tag">24 Rapier Looms</div>
+              <div class="spec-tag">Ring-Frame Cotton</div>
+              <div class="spec-tag">AZO-Free Dyeing</div>
+            </div>
+            <a href="beddings.html" class="panel-btn">View Collection <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
           </div>
-          <p class="philosophy-text">
-            We believe that a rug is more than a decorative piece; it is the foundation of a room's character. Our design philosophy intertwines contemporary aesthetics with profound respect for traditional techniques. Every thread woven is a testament to our commitment to creating enduring elegance that transforms spaces into sanctuaries of comfort and style.
-          </p>
-          <div class="philosophy-features">
-            <div class="p-feature">
-              <span class="p-feature-num">01</span>
-              <span class="p-feature-text">Curated Materials</span>
+          <div class="panel-image" style="background-image: url('assets/about%20/the%20sanctuary%20of%20beddings.webp');"></div>
+        </div>
+
+        <!-- Panel 2: Cushions -->
+        <div class="scroll-panel">
+          <div class="panel-content">
+            <span class="panel-num">02</span>
+            <h2 class="panel-title">The Artistry of Cushions</h2>
+            <p class="panel-desc">Minimalist modern designs to rich traditional patterns. Developed with extreme attention to detail, shape stability, and cotton, velvet, and linen textures. Backed by mandate quality parameters, we deliver cushions that meet international design standards.</p>
+            <div class="panel-specs">
+              <div class="spec-tag">Minimalist to Traditional</div>
+              <div class="spec-tag">Velvet, Linen & Cotton</div>
+              <div class="spec-tag">Shape Stability Core</div>
             </div>
-            <div class="p-feature">
-              <span class="p-feature-num">02</span>
-              <span class="p-feature-text">Artisanal Mastery</span>
+            <a href="cushions-throws.html" class="panel-btn">View Collection <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+          </div>
+          <div class="panel-image" style="background-image: url('assets/side-cushion.webp');"></div>
+        </div>
+
+        <!-- Panel 3: Floors -->
+        <div class="scroll-panel">
+          <div class="panel-content">
+            <span class="panel-num">03</span>
+            <h2 class="panel-title">The Soul of the Floor</h2>
+            <p class="panel-desc">Combining modern aesthetics with traditional craftsmanship. Versatile floor coverings from rugs and carpets to runners and mats, crafted in premium wool, cotton, viscose, and jute, designed to deliver comfort underfoot while elevating styling ratios.</p>
+            <div class="panel-specs">
+              <div class="spec-tag">Hand-Tufted & Woven</div>
+              <div class="spec-tag">Organic Wool & Jute</div>
+              <div class="spec-tag">Custom Dimensions</div>
             </div>
-            <div class="p-feature">
-              <span class="p-feature-num">03</span>
-              <span class="p-feature-text">Timeless Design</span>
+            <a href="carpets-rugs.html" class="panel-btn">View Collection <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+          </div>
+          <div class="panel-image" style="background-image: url('assets/about%20/THE%20SOUL%20OF%20THE%20FLOOR.webp');"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Generational Hand-Skills (Parallax reveal large image) -->
+  <section class="artisans-section section-light">
+    <div class="container">
+      <div class="artisans-grid">
+        <div class="artisans-text">
+          <span class="section-label">Preserving the Human Touch</span>
+          <h2>The Art of the Hand-Skilled Maker</h2>
+          <p style="font-size: 1.15rem; line-height: 1.75; color: var(--color-text-muted); margin-bottom: 30px;">At Shyamik Overseas, we believe that the soul of a product lies in the hands that create it. While Panipat is known for industrial strength, we have dedicated ourselves to preserving the human touch that defines premium home textiles.</p>
+          
+          <div class="artisans-features">
+            <div class="art-feat-item">
+              <div class="art-feat-icon">01</div>
+              <div class="art-feat-content">
+                <h4>Precision in Every Knot</h4>
+                <p>Our rugs are brought to life through meticulous hand-tufting and weaving techniques, ensuring a level of texture and durability that mass automation alone cannot replicate.</p>
+              </div>
+            </div>
+            
+            <div class="art-feat-item">
+              <div class="art-feat-icon">02</div>
+              <div class="art-feat-content">
+                <h4>Detail in the Stitch</h4>
+                <p>From delicate embroidery on cushions to refined finishes on bedding, our artisans bring decades of generational knowledge and cultural legacy to every single piece.</p>
+              </div>
+            </div>
+            
+            <div class="art-feat-item">
+              <div class="art-feat-icon">03</div>
+              <div class="art-feat-content">
+                <h4>Vertical Integrity</h4>
+                <p>Because production is 100% in-house, we provide a safe, dignified, and master-led environment for our craftsmen to thrive, keeping the heritage alive.</p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="philosophy-image-wrapper">
-          <img src="https://picsum.photos/seed/craft1/600/800" alt="Mindful Craftsmanship" class="philosophy-img main-img">
-          <img src="https://picsum.photos/seed/craft2/300/400" alt="Details" class="philosophy-img sub-img">
+        
+        <div class="artisan-img-col">
+          <div class="artisan-image-wrapper" id="artisanImgWrapper">
+            <img loading="lazy" src="assets/about%20/THE%20ART%20OF%20THE%20HAND-SKILLED%20MAKER.webp" alt="Artisan weaving handcrafted textiles" class="artisan-large-img" id="artisanImg">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Women's Empowerment Section with custom image -->
+  <section class="empowerment-section">
+    <div class="container">
+      <div class="empower-grid">
+        <div class="empower-img-col">
+          <div class="empower-img-wrapper" id="empowerImgWrapper">
+            <img loading="lazy" src="assets/about%20/women%20in%20support%20.webp" alt="Supporting Women's Craftsmanship" class="empower-static-img" id="empowerImg">
+          </div>
+          <div class="quote-box">
+            <div class="quote-text">"Our products do more than just decorate a home; they carry the story of the empowered hands that made them."</div>
+            <div class="quote-author">Shyamik Overseas ethos</div>
+          </div>
+        </div>
+        
+        <div class="empower-text-col">
+          <span class="section-label">Empowering Communities</span>
+          <h2>Supporting Women's Craftsmanship</h2>
+          <p style="font-size: 1.15rem; line-height: 1.8; color: var(--color-text-muted);">We take immense pride in our role as a catalyst for female empowerment within the textile industry. We recognize that when you empower a craftswoman, you strengthen a whole community.</p>
+          
+          <div class="empower-cards">
+            <div class="empower-card">
+              <h4>Inclusive Workforce</h4>
+              <p>We actively cultivate a workspace where women artisans lead the way in design-heavy processes like intricate hand-stitching, tassel application, and precision quality control.</p>
+            </div>
+            <div class="empower-card">
+              <h4>Equity & Opportunity</h4>
+              <p>By providing fair wages and a supportive manufacturing environment in the heart of Panipat, we ensure our female artisans are stakeholders in our global success.</p>
+            </div>
+          </div>
+          
+          <div style="margin-top: 40px; padding: 20px; border-radius: 8px; background: rgba(47,42,38,0.03); border-left: 2px solid var(--color-accent-gold);">
+            <p style="font-family: var(--font-hero); font-size: 1.25rem; font-style: italic; color: var(--color-text-dark); line-height: 1.5; margin-bottom: 8px;">"There’s something so special about a woman who dominates in a man’s world..."</p>
+            <p style="font-family: var(--font-body); font-size: 0.8rem; text-transform: uppercase; font-weight: 700; color: var(--color-primary); letter-spacing: 0.05em;">— Michelle Obama</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Certifications Section -->
+  <section class="section-light" style="background: #FFF8ED;">
+    <div class="container text-center">
+      <span class="section-label">Compliance & Standards</span>
+      <h2>Verified Global Excellence</h2>
+      <p style="max-width: 700px; margin: 0 auto 50px auto; color: var(--color-text-muted); font-size: 1.15rem; line-height: 1.7;">Our facilities operate under the strictest international regulatory oversight. We are officially audited and certified by leading global bodies to ensure fair labor, eco-safety, and masterclass quality management systems.</p>
+      
+      <!-- Premium Showcase Container for the exact Certifications Board -->
+      <div class="certifications-board-wrapper" id="certsBoardWrapper">
+        <img loading="lazy" src="assets/about%20/certifications-board.webp" alt="Shyamik Overseas Quality Certifications">
+      </div>
+      
+      <!-- Detailed explanation of each exact certification -->
+      <div class="certs-desc-grid">
+        <div class="cert-desc-item">
+          <h4>Sedex Audited</h4>
+          <p>Empowering social responsibility and ethical supply chains. Ensures complete transparency and strict compliance in labor practices, safety measures, and environmental accountability.</p>
+        </div>
+        
+        <div class="cert-desc-item">
+          <h4>GoodWeave Certified</h4>
+          <p>Guarantees child-labor-free manufacturing processes. A percentage of each rug purchase funds local education programs and supports weaving communities throughout the region.</p>
+        </div>
+        
+        <div class="cert-desc-item">
+          <h4>ISO Management Triad</h4>
+          <p>Operates under verified global quality control systems:</p>
+          <ul style="font-size: 0.95rem; color: var(--color-text-muted); padding-left: 20px; margin-top: 10px; line-height: 1.6; text-align: left; list-style-type: square;">
+            <li><strong>ISO 9001:</strong> Master Quality Assurance</li>
+            <li><strong>ISO 14001:</strong> Environmental Safety Standards</li>
+            <li><strong>ISO 45001:</strong> Occupational Welfare & Health</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -171,15 +800,249 @@
   <footer class="footer-rc">
     <div class="container">
       <div class="footer-rc-grid">
-        <div class="footer-rc-col"><h4>Company</h4><a href="index.html">Home</a><a href="about.html">About</a><a href="blog.html">Blogs</a><a href="contact.html">Contact</a></div>
-        <div class="footer-rc-col"><h4>Products</h4><a href="carpets-rugs.html">Carpets & Rugs</a><a href="cushions-throws.html">Cushions & Throws</a><a href="poufs-ottomans.html">Poufs & Ottomans</a><a href="beddings.html">Beddings</a></div>
-        <div class="footer-rc-col"><h4>Follow Us</h4><div class="footer-rc-social"><a href="https://www.instagram.com/shyamikoverseas.in" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram</a><a href="https://www.linkedin.com/company/shyamikoverseas" target="_blank"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> LinkedIn</a><a href="#"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg> YouTube</a></div></div>
-        <div class="footer-rc-col"><h4>Address</h4><p>Faridabad, Haryana, India</p><p>📞 +91-0 9992717900</p><p>✉️ info@shyamikoverseas.com</p></div>
+        <div class="footer-rc-col">
+          <h4>Company</h4>
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="blog.html">Blogs</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-rc-col">
+          <h4>Products</h4>
+          <a href="carpets-rugs.html">Carpets & Rugs</a>
+          <a href="cushions-throws.html">Cushions & Throws</a>
+          <a href="poufs-ottomans.html">Poufs & Ottomans</a>
+          <a href="beddings.html">Beddings</a>
+        </div>
+        <div class="footer-rc-col">
+          <h4>Follow Us</h4>
+          <div class="footer-rc-social">
+            <a href="https://www.instagram.com/shyamikoverseas.in/" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram</a>
+          </div>
+        </div>
+        <div class="footer-rc-col">
+          <h4>Address</h4>
+          <p>Faridabad, Haryana, India</p>
+          <p>📞 +91-0 9992717900</p>
+          <p>✉️ contact@shyamikoverseas.in</p>
+        </div>
       </div>
-      <div class="footer-rc-bottom"><div class="footer-rc-bottom-logo"><img src="assets/logo.png" alt="Shyamik Overseas"><span>©Shyamik Overseas 2024. All rights Reserved.</span></div><div><a href="#" style="color:#555;">Privacy Policy</a></div></div>
+      <div class="footer-rc-bottom">
+        <div class="footer-rc-bottom-logo">
+          <img src="assets/logo.png" alt="Shyamik Overseas">
+          <span>©Shyamik Overseas 2024. All rights Reserved.</span>
+        </div>
+        <div>
+          <a href="#" style="color:#555;">Privacy Policy</a>
+        </div>
+      </div>
     </div>
   </footer>
 
+  <!-- Product Selection Modal (Explore Products Trigger) -->
+  <div class="product-modal-overlay" id="productModal">
+    <div class="product-modal-container">
+      <button class="product-modal-close" id="closeProductModal" aria-label="Close modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      
+      <div class="product-modal-header">
+        <span class="product-modal-label">Explore Collections</span>
+        <h2 class="product-modal-title">Select a Category</h2>
+        <p class="product-modal-subtitle">Discover our premium range of hand-crafted textiles, tailored to elevate your living spaces.</p>
+      </div>
+      
+      <div class="product-modal-grid">
+        <a href="carpets-rugs.html" class="product-modal-card">
+          <div class="product-modal-card-img">
+            <img loading="lazy" src="assets/about%20/THE%20SOUL%20OF%20THE%20FLOOR.webp" alt="Carpets & Rugs">
+          </div>
+          <div class="product-modal-card-content">
+            <h3>Carpets & Rugs</h3>
+            <p>Masterpieces for every space</p>
+            <span class="product-modal-card-btn">Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </div>
+        </a>
+        
+        <a href="cushions-throws.html" class="product-modal-card">
+          <div class="product-modal-card-img">
+            <img loading="lazy" src="assets/side-cushion.webp" alt="Cushions & Throws">
+          </div>
+          <div class="product-modal-card-content">
+            <h3>Cushions & Throws</h3>
+            <p>Perfect luxury accents</p>
+            <span class="product-modal-card-btn">Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </div>
+        </a>
+        
+        <a href="poufs-ottomans.html" class="product-modal-card">
+          <div class="product-modal-card-img">
+            <img loading="lazy" src="assets/high-quality-products.webp" alt="Poufs & Ottomans">
+          </div>
+          <div class="product-modal-card-content">
+            <h3>Poufs & Ottomans</h3>
+            <p>Versatile, functional statements</p>
+            <span class="product-modal-card-btn">Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </div>
+        </a>
+        
+        <a href="beddings.html" class="product-modal-card">
+          <div class="product-modal-card-img">
+            <img loading="lazy" src="assets/about%20/the%20sanctuary%20of%20beddings.webp" alt="Beddings">
+          </div>
+          <div class="product-modal-card-content">
+            <h3>Beddings</h3>
+            <p>Ultimate comfort and luxury</p>
+            <span class="product-modal-card-btn">Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
   <script src="js/main.js"></script>
+  
+  <script>
+    // GSAP ScrollTrigger Sequence & Parallax
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 1. Hero Content Anim
+    gsap.fromTo('.page-hero-content h1', 
+      { opacity: 0, y: 50 }, 
+      { opacity: 1, y: 0, duration: 1.2, ease: 'power4.out', delay: 0.6 }
+    );
+    gsap.fromTo('.page-hero-content p', 
+      { opacity: 0, y: 30 }, 
+      { opacity: 1, y: 0, duration: 1.2, ease: 'power4.out', delay: 0.9 }
+    );
+
+    // Zoom Parallax for Hero Background Image
+    gsap.to('#heroBg', {
+      yPercent: 20,
+      scale: 1.15,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.page-hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+
+    // 2. Stats Auto-Counter Increment
+    const stats = document.querySelectorAll('.stat-num');
+    stats.forEach(stat => {
+      const target = parseInt(stat.getAttribute('data-val'));
+      ScrollTrigger.create({
+        trigger: stat,
+        start: 'top 85%',
+        onEnter: () => {
+          let countObj = { val: 0 };
+          gsap.to(countObj, {
+            val: target,
+            duration: 2,
+            ease: 'power2.out',
+            onUpdate: () => {
+              stat.textContent = Math.floor(countObj.val) + (target === 100 ? '%' : target === 53 ? '+' : target === 24 ? '' : '+');
+            }
+          });
+        },
+        once: true
+      });
+    });
+
+    // 3. Horizontal Scroll Pinning (Only on desktop screens > 1024px)
+    let mm = gsap.matchMedia();
+    mm.add("(min-width: 1025px)", () => {
+      const track = document.getElementById('scrollTrack');
+      
+      gsap.to(track, {
+        x: () => -(track.scrollWidth - window.innerWidth),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#horizontalSection',
+          pin: true,
+          scrub: 1,
+          start: 'top top',
+          end: () => '+=' + (track.scrollWidth - window.innerWidth),
+          invalidateOnRefresh: true
+        }
+      });
+    });
+
+    // 4. Parallax Scroll Effect for artisan main image
+    gsap.to('#artisanImg', {
+      yPercent: 12,
+      scale: 1.06,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#artisanImgWrapper',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+
+    // 5. Parallax Scroll Effect for women empowerment image
+    gsap.to('#empowerImg', {
+      yPercent: 10,
+      scale: 1.05,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#empowerImgWrapper',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+
+    // 6. Staggered fade in/up reveal triggers
+    gsap.utils.toArray('.art-feat-item').forEach((item, i) => {
+      gsap.fromTo(item, 
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: item,
+            start: 'top 85%'
+          }
+        }
+      );
+    });
+
+    // 7. Certifications Board & Desc staggered fade in
+    gsap.fromTo('#certsBoardWrapper',
+      { opacity: 0, scale: 0.96, y: 40 },
+      {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '#certsBoardWrapper',
+          start: 'top 85%'
+        }
+      }
+    );
+
+    gsap.fromTo('.cert-desc-item',
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.certs-desc-grid',
+          start: 'top 85%'
+        }
+      }
+    );
+  </script>
 </body>
 </html>

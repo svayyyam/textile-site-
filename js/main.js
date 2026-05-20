@@ -300,6 +300,72 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // 10. PRODUCT EXPLORE SELECTOR MODAL
+  const exploreProductsBtn = document.getElementById('exploreProductsBtn');
+  const productModal = document.getElementById('productModal');
+  const closeProductModal = document.getElementById('closeProductModal');
+
+  if (exploreProductsBtn && productModal) {
+    exploreProductsBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      productModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      
+      // Animate with GSAP if available
+      if (window.gsap) {
+        gsap.fromTo('.product-modal-container',
+          { scale: 0.95, y: 30, opacity: 0 },
+          { scale: 1, y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }
+        );
+        gsap.fromTo('.product-modal-header > *',
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.4, stagger: 0.08, ease: 'power2.out', delay: 0.1 }
+        );
+        gsap.fromTo('.product-modal-card',
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out', delay: 0.2 }
+        );
+      }
+    });
+  }
+
+  if (productModal && closeProductModal) {
+    const closeModal = () => {
+      if (window.gsap) {
+        gsap.to('.product-modal-container', {
+          scale: 0.95,
+          y: 20,
+          opacity: 0,
+          duration: 0.3,
+          ease: 'power2.in',
+          onComplete: () => {
+            productModal.classList.remove('active');
+            document.body.style.overflow = '';
+          }
+        });
+      } else {
+        productModal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    };
+
+    closeProductModal.addEventListener('click', closeModal);
+
+    // Close on clicking outside the modal container
+    productModal.addEventListener('click', (e) => {
+      if (e.target === productModal) {
+        closeModal();
+      }
+    });
+
+    // Close on Esc key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && productModal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  }
+
 });
 
 // Add simple fadeIn keyframe dynamically
