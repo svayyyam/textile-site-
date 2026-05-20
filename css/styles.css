@@ -871,31 +871,30 @@ textarea.form-control { resize: vertical; min-height: 120px; }
 
   /* Infographics Responsive - Keep text readable on mobile via horizontal scroll */
   .why-choose-us {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
   }
   .why-choose-us-img {
-    min-width: 750px;
-    width: auto;
+    width: 100%;
+    max-width: 100%;
+    min-width: unset;
     height: auto;
   }
   .about-strip {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    padding: 40px 0 !important;
   }
   .about-strip .text-center {
-    width: max-content;
-    padding: 0 20px;
+    width: 100%;
+    padding: 0;
   }
   .about-strip img {
-    min-width: 750px;
-    width: auto;
+    width: 100%;
+    max-width: 100%;
+    min-width: unset;
     height: auto;
   }
 }
