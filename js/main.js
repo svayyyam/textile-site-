@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cards = gsap.utils.toArray('.slide-card');
     
     // Set initial un-focused state
-    gsap.set(cards, { scale: 0.85, opacity: 0.4, filter: "blur(6px)" });
+    gsap.set(cards, { scale: 0.95, opacity: 0.8, filter: "none" });
     
     let getScrollAmount = () => horizontalTrack.scrollWidth - window.innerWidth;
 
@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
       gsap.to(card, {
         scale: 1,
         opacity: 1,
-        filter: "blur(0px)",
+        filter: "none",
         ease: "power1.inOut",
         scrollTrigger: {
           trigger: card,
@@ -276,9 +276,9 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Scale down when leaving center
       gsap.to(card, {
-        scale: 0.85,
-        opacity: 0.4,
-        filter: "blur(6px)",
+        scale: 0.95,
+        opacity: 0.8,
+        filter: "none",
         ease: "power1.inOut",
         scrollTrigger: {
           trigger: card,
